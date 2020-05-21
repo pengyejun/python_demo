@@ -2,9 +2,9 @@ import socket
 
 
 class UDPServer(object):
-    def __init__(self, host, port):
-        self._host = host
-        self._port = port
+    def __init__(self, _host, _port):
+        self._host = _host
+        self._port = _port
 
     def __enter__(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -25,4 +25,5 @@ if __name__ == "__main__":
     with UDPServer(host, port) as s:
         while True:
             msg, addr = s.recvfrom(1024)
+            print(msg, addr)
             s.sendto(msg, addr)
