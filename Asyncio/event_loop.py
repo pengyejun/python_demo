@@ -82,7 +82,7 @@ async def handler(c):
         msg = await loop.sock_recv(c, 1024)
         if not msg:
             break
-        await loop.sock_sendall(c, msg)
+        print(await loop.sock_sendall(c, msg))
     c.close()
 
 

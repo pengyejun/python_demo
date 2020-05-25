@@ -3,7 +3,7 @@ import asyncio
 
 class AsyncIter:
     def __init__(self, it):
-        self.it = iter(it)
+        self.it = it.__iter__()
 
     def __aiter__(self):
         return self
@@ -20,9 +20,15 @@ class AsyncIter:
 
 
 async def foo():
-    it = [1, 2, 3]
-    async for _ in AsyncIter(it):
-        print(_)
+    _ = [1, 2, 3]
+    it = AsyncIter(_)
+    running = True
 
+    while running:
+        try:
+            res = await it.__anext__()
+            print(res)
+        except StopAsyncIteration:
+            running = False
 
 asyncio.run(foo())
